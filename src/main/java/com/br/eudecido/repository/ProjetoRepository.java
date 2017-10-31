@@ -1,6 +1,7 @@
 package com.br.eudecido.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,9 +11,7 @@ import com.br.eudecido.models.Politico;
 import com.br.eudecido.models.Projeto;
 
 public interface ProjetoRepository extends JpaRepository<Projeto, Integer>{
-	
-	Projeto findById(Integer id);
-	
+
 	List<Projeto> findByNomeContainingIgnoreCase(String nome);
 	
 	List<Projeto> findByPolitico(Politico politico);

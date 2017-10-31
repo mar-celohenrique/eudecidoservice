@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.br.eudecido.models.Comentario;
 
+import java.util.Optional;
+
 public interface ComentarioRepository extends JpaRepository<Comentario, Integer> {
-	Comentario findById(Integer id);
+	Optional<Comentario> findById(Integer id);
 }

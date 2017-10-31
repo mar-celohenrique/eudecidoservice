@@ -31,7 +31,7 @@ public class PoliticoController {
 
 	@RequestMapping(value = "/buscar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Politico> logar(@RequestBody Integer id) {
-		return new ResponseEntity<Politico>(service.buscarPorId(id), HttpStatus.OK);
+		return new ResponseEntity<Politico>(service.buscarPorId(id).get(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/listar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

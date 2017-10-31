@@ -1,6 +1,7 @@
 package com.br.eudecido.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,53 +12,54 @@ import com.br.eudecido.repository.UsuarioRepository;
 @Service
 public class UsuarioService {
 
-	@Autowired
-	private UsuarioRepository repository;
+    @Autowired
+    private UsuarioRepository repository;
 
-	public String salvar(Usuario usuario) {
-		if (this.buscarPorCPF(usuario.getCpf()) != null) {
-			return "cpf";
-		} else if (this.buscarPorEmail(usuario.getEmail()) != null) {
-			return "email";
-		}
-		repository.save(usuario);
-		return "sucesso";
-	}
+    public String salvar(Usuario usuario) {
+        if (this.buscarPorCPF(usuario.getCpf()) != null) {
+            return "cpf";
+        } else if (this.buscarPorEmail(usuario.getEmail()) != null) {
+            return "email";
+        }
+        repository.save(usuario);
+        return "sucesso";
+    }
 
-	public void excluir(Integer id) {
-		repository.delete(id);
-	}
+    public void excluir(Integer id) {
+        Optional<Usuario> user = repository.findById(id);
+        repository.delete(user.get());
+    }
 
-	public List<Usuario> listar() {
-		return repository.findAll();
-	}
+    public List<Usuario> listar() {
+        return repository.findAll();
+    }
 
-	public Usuario buscarPorId(Integer id) {
-		return repository.findById(id);
-	}
+    public Optional<Usuario> buscarPorId(Integer id) {
+        return repository.findById(id);
+    }
 
-	public Usuario buscarPorCPF(String cpf) {
-		return repository.findByCpf(cpf);
-	}
+    public Usuario buscarPorCPF(String cpf) {
+        return repository.findByCpf(cpf);
+    }
 
-	public Usuario buscarPorEmail(String email) {
-		return repository.findByEmail(email);
-	}
+    public Usuario buscarPorEmail(String email) {
+        return repository.findByEmail(email);
+    }
 
-	public String atualizar(Usuario usuario) {
-		Usuario user = this.buscarPorId(usuario.getId());
+    public String atualizar(Usuario usuario) {
+        Optional<Usuario> user = this.buscarPorId(usuario.getId());
 
-		if ((user.getCpf().equals(usuario.getCpf())) || (this.buscarPorCPF(usuario.getCpf()) != null))
-			return "cpf";
-		if ((user.getEmail().equals(usuario.getEmail())) || (this.buscarPorEmail(usuario.getEmail()) != null))
-			return "email";
+        if ((user.get().getCpf().equals(usuario.getCpf())) || (this.buscarPorCPF(usuario.getCpf()) != null))
+            return "cpf";
+        if ((user.get().getEmail().equals(usuario.getEmail())) || (this.buscarPorEmail(usuario.getEmail()) != null))
+            return "email";
 
-		repository.save(usuario);
-		return "atualizado";
-	}
+        repository.save(usuario);
+        return "atualizado";
+    }
 
-	public Usuario logar(String email, String senha) {
-		return repository.findByEmailAndSenha(email, senha);
-	}
+    public Usuario logar(String email, String senha) {
+        return repository.findByEmailAndSenha(email, senha);
+    }
 
 }

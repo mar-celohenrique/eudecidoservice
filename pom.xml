@@ -6,7 +6,7 @@
 	<groupId>com.br.eudecido</groupId>
 	<artifactId>ServiceEudecido</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>ServiceEuDecido</name>
 	<description>Demo project for Spring Boot</description>
@@ -58,6 +58,11 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot</artifactId>
+			<version>1.5.7.RELEASE</version>
 		</dependency>
 	</dependencies>
 
