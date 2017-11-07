@@ -161,8 +161,7 @@
                 <configuration>
                     <failOnError>false</failOnError>
                     <xmlOutput>true</xmlOutput>
-                    <includeFilterFile>${project.basedir}/src/main/resources/findbugs-filter.xml</includeFilterFile>
-                </configuration>
+                    </configuration>
             </plugin>
 
             <plugin>
