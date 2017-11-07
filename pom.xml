@@ -28,6 +28,7 @@
         <pmd.version>3.8</pmd.version>
         <findbugs.version>3.0.5</findbugs.version>
         <checkstyle.version>2.17</checkstyle.version>
+        <checkstyle.config.location>${project.basedir}/src/main/resources/check-style-rules.xml</checkstyle.config.location>
     </properties>
 
     <dependencies>
@@ -221,11 +222,6 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>${findbugs.version}</version>
-                <configuration>
-                    <failOnError>false</failOnError>
-                    <xmlOutput>true</xmlOutput>
-                    <includeFilterFile>${project.basedir}/src/main/resources/findbugs-filter.xml</includeFilterFile>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
