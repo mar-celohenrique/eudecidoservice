@@ -22,6 +22,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <path.java>/System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java</path.java>
+        <password.storepass>manu20172</password.storepass>
+        <password.keypass>manu20172</password.keypass>
+        <pmd.version>3.8</pmd.version>
+        <findbugs.version>3.0.5</findbugs.version>
+        <checkstyle.version>2.17</checkstyle.version>
     </properties>
 
     <dependencies>
@@ -64,6 +70,23 @@
             <artifactId>spring-boot</artifactId>
             <version>1.5.7.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>pmd</groupId>
+            <artifactId>pmd</artifactId>
+            <version>4.2.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>8.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>findbugs-maven-plugin</artifactId>
+            <version>3.0.5</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -74,16 +97,77 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.8</version>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <executable>${path.java}</executable>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.br.eudecido.ServiceEuDecidoApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jarsigner-plugin</artifactId>
+                <version>1.4</version>
                 <executions>
                     <execution>
+                        <id>sign</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>check</goal>
-                            <goal>cpd-check</goal>
+                            <goal>sign</goal>
                         </goals>
                     </execution>
                 </executions>
+
+                <configuration>
+                    <archiveDirectory>target/</archiveDirectory>
+                    <includes>
+                        <include>**/*.jar</include>
+                    </includes>
+                    <keystore>${project.basedir}/src/main/resources/chave</keystore>
+                    <alias>chave</alias>
+                    <storepass>${password.storepass}</storepass>
+                    <keypass>${password.keypass}</keypass>
+                </configuration>
+
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmd.version}</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>${project.basedir}/src/main/resources/pmd-rules.xml</ruleset>
+                    </rulesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+                <configuration>
+                    <failOnError>false</failOnError>
+                    <xmlOutput>true</xmlOutput>
+                    <includeFilterFile>${project.basedir}/src/main/resources/findbugs-filter.xml</includeFilterFile>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.version}</version>
             </plugin>
         </plugins>
 
@@ -125,5 +209,31 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmd.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+                <configuration>
+                    <failOnError>false</failOnError>
+                    <xmlOutput>true</xmlOutput>
+                    <includeFilterFile>${project.basedir}/src/main/resources/findbugs-filter.xml</includeFilterFile>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
 
 </project>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ruleset name="PMD-Rules">
+    <description>
+        The rulesets we want to use in pmd. For a detailed description of pmd rulesets:
+        http://pmd.sourceforge.net/rules/index.html
+    </description>
+
+    <rule ref="rulesets/java/basic.xml/EmptyCatchBlock"
+          message="Must handle exceptions">
+        <priority>2</priority>
+    </rule>
+
+    <rule ref="rulesets/java/codesize.xml/CyclomaticComplexity">
+        <properties>
+            <property name="reportLevel" value="5"/>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/java/braces.xml">
+        <exclude name="WhileLoopsMustUseBraces"/>
+        <exclude name="IfElseStmtsMustUseBraces"/>
+    </rule>
+</ruleset>
