@@ -12,4 +12,11 @@
     <Match>
         <Bug pattern="HE_EQUALS_USE_HASHCODE"/>
     </Match>
+
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
 </FindBugsFilter>
