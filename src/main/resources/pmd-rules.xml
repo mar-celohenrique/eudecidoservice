@@ -13,12 +13,14 @@
 
     <rule ref="rulesets/java/codesize.xml/CyclomaticComplexity">
         <properties>
-            <property name="reportLevel" value="5"/>
+            <property name="reportLevel" value="25"/>
         </properties>
     </rule>
 
     <rule ref="rulesets/java/braces.xml">
-        <exclude name="WhileLoopsMustUseBraces"/>
-        <exclude name="IfElseStmtsMustUseBraces"/>
+        <include name="WhileLoopsMustUseBraces"/>
+        <include name="IfElseStmtsMustUseBraces"/>
     </rule>
+
+
 </ruleset>
